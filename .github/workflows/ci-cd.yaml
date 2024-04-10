@@ -1,0 +1,29 @@
+name: jusan_ci_cd
+
+on:
+  push:
+    branches: [ "backend2" ]
+  pull_request:
+    branches: [ "backend2" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install Docker
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y docker.io
+
+    - name: Install Docker Compose
+      run: |
+        sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+        sudo chmod +x /usr/local/bin/docker-compose
+
+    - name: Deploy with Docker Compose
+      run: |
+        ssh user@your_remote_server 'cd /path/to/project && git pull origin main && docker-compose up -d'
