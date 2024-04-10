@@ -2,8 +2,9 @@ name: jusan_ci_cd
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "backend2" ]
+  pull_request:
+    branches: [ "backend2" ]
 
 jobs:
   deploy:
